@@ -9,6 +9,8 @@ import Shirt1 from 'src/assets/tshirt.png';
 import Shirt2 from 'src/assets/tshirt1.png';
 import Shirt3 from 'src/assets/tshirt2.png';
 import Shirt4 from 'src/assets/tshirt3.png';
+import { stripe } from "../lib/stripe";
+import { GetServerSideProps } from "next";
 
 export default function Home() {
   
@@ -63,4 +65,24 @@ export default function Home() {
       </Product>
     </HomeContainer>
   )
+}
+
+export const getServerSideProps:GetServerSideProps= async () => {
+  const response = await stripe.products.list()
+ 
+  const products = response.data.map(product => {
+    return {
+      id: product.id,
+      name:product.name,
+      imageUrl: product.images
+    }
+  })
+
+  console.log(response.data);
+
+  return {
+    props: {
+      list: [1, 2, 3]
+    }
+  }
 }
