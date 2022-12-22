@@ -59,7 +59,11 @@ export const ProductDetails = styled('div', {
         padding: '1.25rem',
         cursor: 'pointer',
         fontWeight: 'bold',
-        fontSize: '1.5rem'
+        fontSize: '1.25rem',
+
+        '&:hover': {
+            backgroundColor:'$green300',
+        }
     },
 
 })
