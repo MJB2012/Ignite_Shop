@@ -1,5 +1,4 @@
-import { GetStaticProps } from "next";
-import { useRouter } from "next/router";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 import { stripe } from "../../lib/stripe";
 import Stripe from "stripe";
@@ -9,6 +8,7 @@ import {
   ProductContainer,
   ProductDetails,
 } from "../../styles/pages/product";
+
 import Image from "next/image";
 
 interface ProductProps {
@@ -39,7 +39,7 @@ export default function Product({ product }: ProductProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
+export const getServerSideProps: GetServerSideProps<any, { id: string }> = async ({
   params,
 }) => {
   const productId = params!.id;
@@ -64,6 +64,6 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         description: product.description
       },
     },
-    revalidate: 60 * 60 * 1, // 60 minutes
+    /* revalidate: 60 * 60 * 1, // 60 minutes */
   };
 };
