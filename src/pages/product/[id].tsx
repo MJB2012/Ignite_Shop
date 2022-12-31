@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 
 import { stripe } from "../../lib/stripe";
 import Stripe from "stripe";
@@ -39,6 +39,16 @@ export default function Product({ product }: ProductProps) {
       </ProductDetails>
     </ProductContainer>
   );
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    return {
+      paths: [
+        { params:{id: 'prod_MzjDxV3w5iwC0c'} }
+      ],
+      fallback: false
+    }
+      
 }
 
 export const getServerSideProps: GetServerSideProps<any, { id: string }> = async ({
