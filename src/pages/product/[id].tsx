@@ -73,7 +73,8 @@ export const getServerSideProps: GetServerSideProps<any, { id: string }> = async
           style: "currency",
           currency: "BRL",
         }).format(price.unit_amount! / 100),
-        description: product.description
+        description: product.description,
+        defaultPriceId: price.id, 
       },
     },
     /* revalidate: 60 * 60 * 1, // 60 minutes */
