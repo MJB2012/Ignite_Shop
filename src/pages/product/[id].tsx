@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 import { stripe } from "../../lib/stripe";
 import Stripe from "stripe";
@@ -10,6 +10,7 @@ import {
 } from "../../styles/pages/product";
 
 import Image from "next/image";
+import axios from "axios";
 
 interface ProductProps {
     product: {
@@ -23,8 +24,19 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  function handleBuyProduct(){
-    console.log(product.defaultPriceId)
+  async function handleBuyProduct() {
+    try {
+      const response = await axios.post('/api/checkout',{
+        priceId: product.defaultPriceId,
+      })
+
+      const { checkoutUrl } = response.data;
+      
+      window.location.href = checkoutUrl
+
+    } catch (err) {
+      alert('Falha ao redirecionar ao checkout')
+    }
   }
   return (
     <ProductContainer>
