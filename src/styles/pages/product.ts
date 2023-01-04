@@ -8,6 +8,7 @@ export const ProductContainer = styled('main', {
 
     maxWidth: 1180,
     margin:'0 auto',
+    marginBottom: 20
 })
 
 export const ImageContainer = styled('div', {
@@ -56,10 +57,11 @@ export const ProductDetails = styled('div', {
         border: 0,
         color:'$white',
         borderRadius: 8,
-        padding: '1.25rem',
+        padding: '1rem',
         cursor: 'pointer',
         fontWeight: 'bold',
         fontSize: '1.25rem',
+        
 
         '&:hover': {
             backgroundColor:'$green300',

@@ -18,11 +18,14 @@ interface ProductProps {
         imageUrl: string;
         price: string;
         description: string;
+        defaultPriceId: string;
     }
 }
 
 export default function Product({ product }: ProductProps) {
-  
+  function handleBuyProduct(){
+    console.log(product.defaultPriceId)
+  }
   return (
     <ProductContainer>
       <ImageContainer>
@@ -35,7 +38,10 @@ export default function Product({ product }: ProductProps) {
         <p>
           {product.description}
         </p>
-        <button>Comprar</button>
+        <button
+        onClick={handleBuyProduct}
+        >
+          Comprar</button>
       </ProductDetails>
     </ProductContainer>
   );
@@ -51,7 +57,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       
 }
 
-export const getServerSideProps: GetServerSideProps<any, { id: string }> = async ({
+export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   params,
 }) => {
   const productId = params!.id;
