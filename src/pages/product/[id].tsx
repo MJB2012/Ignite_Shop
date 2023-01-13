@@ -11,6 +11,7 @@ import {
 
 import Image from "next/image";
 import axios from "axios";
+import { useState } from "react";
 
 interface ProductProps {
     product: {
@@ -24,8 +25,13 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  
+  const [creatingCheckoutSession, setCreatingCheckoutSession] = useState(false)
+  
   async function handleBuyProduct() {
     try {
+      setCreatingCheckoutSession(true)
+
       const response = await axios.post('/api/checkout',{
         priceId: product.defaultPriceId,
       })
@@ -35,6 +41,10 @@ export default function Product({ product }: ProductProps) {
       window.location.href = checkoutUrl
 
     } catch (err) {
+      
+      setCreatingCheckoutSession(false);
+
+     
       alert('Falha ao redirecionar ao checkout')
     }
   }
@@ -51,6 +61,7 @@ export default function Product({ product }: ProductProps) {
           {product.description}
         </p>
         <button
+        disabled={creatingCheckoutSession}
         onClick={handleBuyProduct}
         >
           Comprar</button>
