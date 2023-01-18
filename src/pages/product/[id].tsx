@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-
+import Head from "next/head";
 import { stripe } from "../../lib/stripe";
 import Stripe from "stripe";
 
@@ -49,7 +49,15 @@ export default function Product({ product }: ProductProps) {
     }
   }
   return (
-    <ProductContainer>
+    <>
+      <Head>
+        <title>
+          {product.name} | Ignite Shop
+        </title>
+      </Head>
+
+
+     <ProductContainer>
       <ImageContainer>
         <Image src={product.imageUrl} width={520} height={480} alt="" />
       </ImageContainer>
@@ -67,6 +75,8 @@ export default function Product({ product }: ProductProps) {
           Comprar</button>
       </ProductDetails>
     </ProductContainer>
+    </>
+   
   );
 }
 
